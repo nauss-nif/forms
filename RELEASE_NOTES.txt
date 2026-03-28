@@ -1,0 +1,10 @@
+Latest release prepared for GitHub → Vercel.
+
+What I changed:
+- Updated app/globals.css (visual refresh).
+- Ensured package.json scripts (dev, build, start) and basic deps (next, react, react-dom).
+
+Deploy:
+1) Push repository to GitHub.
+2) Import project in Vercel (Install: npm ci, Build: npm run build).
+
