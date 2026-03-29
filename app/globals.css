@@ -1,193 +1,68 @@
 /* app/globals.css
-   Tailwind base + مرجع الخط Cairo + قواعد تنسيق عامة ومكونات الصفحة الأساسية.
-*/
+   اجبار استخدام خط Cairo العادي في كامل الموقع وانتزاع أي وزن بولد مفروض من الـ CSS القديم.
+   ملاحظة: هذا استبدال شامل ومباشر — إذا كان هناك CSS محلي آخر يضع وزنًا محدداً بعد هذا الملف،
+   قد يحتاج تعديل إضافي في نفس الملف أو إزالته. */
 
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Brand colors */
 :root{
-  --nauss-primary: #016564;
-  --nauss-gold: #d0b284;
-  --body-bg: #fbfaf7;
-  --text-muted: #6b7280;
-  --content-max: 1180px;
+  --font-main: "Cairo", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-weight-regular: 400;
 }
 
-/* Global reset / typography */
-html,body,#__next { height:100%; }
-body {
-  font-family: 'Cairo', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  background: var(--body-bg);
-  color: #0f172a;
-  line-height: 1.45;
+/* قاعدة عامة: cairo عادي لكل العناصر */
+html, body {
+  font-family: var(--font-main) !important;
+  font-weight: var(--font-weight-regular) !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  direction: rtl; /* حافظ على اتجاه الموقع */
 }
 
-/* Centered page container used across pages */
-.container-centered{
-  max-width: var(--content-max);
-  margin: 0 auto;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
+/* فرض الخط والوزن على كل العناصر حتى لو كانت هناك قواعد أخرى */
+*,
+*::before,
+*::after {
+  font-family: var(--font-main) !important;
+  font-weight: var(--font-weight-regular) !important;
+  box-sizing: border-box;
 }
 
-/* ================ Login / Landing layout ================ */
-/* main layout: two columns on wide screens, single column on narrow screens */
-.login-layout{
-  display: grid;
-  grid-template-columns: 1fr 420px; /* left hero / right card */
-  gap: 2.25rem;
-  align-items: center;
-  min-height: calc(100vh - 4rem);
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
+/* رؤوس وعناوين — أيضاً بالعادي (إن أردت سماكة خفيفة يمكن تغيير 400 إلى 500 هنا) */
+h1, h2, h3, h4, h5, h6,
+strong, b {
+  font-weight: var(--font-weight-regular) !important;
 }
 
-/* hero (left) content: keep text right-aligned in Arabic */
-.hero-right {
-  text-align: right;
-  padding: 1.25rem;
+/* عناصر الإدخال والأزرار لتظهر بنفس الوزن */
+input, textarea, select, button {
+  font-family: var(--font-main) !important;
+  font-weight: var(--font-weight-regular) !important;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* login card (right) */
-.login-card{
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 1.6rem;
-  border: 1px solid rgba(1,101,100,0.06);
-  box-shadow: 0 10px 30px rgba(1,101,100,0.06);
+/* أزرار نمطية (يمكن تعديل اللون/حجم دون تغيير الوزن) */
+button, .btn {
+  font-weight: var(--font-weight-regular) !important;
 }
 
-/* Login inputs / buttons */
-.input {
-  width: 100%;
-  padding: 0.72rem 0.9rem;
-  border-radius: 10px;
-  border: 1px solid #e6e7e8;
-  background: #fbfbfc;
-  font-size: 0.96rem;
-  outline: none;
-}
-.input:focus {
-  border-color: var(--nauss-primary);
-  box-shadow: 0 6px 18px rgba(1,101,100,0.06);
+/* روابط تحتفظ بنفس الوزن */
+a {
+  font-weight: inherit !important;
 }
 
-.btn-primary{
-  display:inline-block;
-  width:100%;
-  padding: 0.68rem 0.9rem;
-  border-radius: 10px;
-  background: var(--nauss-primary);
-  color: white;
-  font-weight: 700;
-  text-align:center;
-  border: none;
+/* تصغير احتمال ظهور الوزن الغامق بسبب التحويل التلقائي للخط */
+:where(strong) {
+  font-weight: var(--font-weight-regular) !important;
 }
 
-/* logo sizing */
-.logo {
-  max-width: 260px;
-  height: auto;
-  display:block;
-  margin-left: auto;
-  margin-right: 0;
-  opacity: 0.98;
+/* إصلاح حالات محددة حيث قد يُفرض وزن من ملفات أخرى */
+.header, .sidebar, .topbar, .card, .dashboard-title {
+  font-family: var(--font-main) !important;
+  font-weight: var(--font-weight-regular) !important;
 }
 
-/* small badge used under logo if needed */
-.nauss-badge {
-  background: var(--nauss-gold);
-  color: #fff;
-  padding: 6px 10px;
-  border-radius: 8px;
-  font-weight: 700;
-  display: inline-block;
-  margin-top: 0.75rem;
+/* احتياطي: إلغاء توليف الخط (font-synthesis) إن وجد تأثير */
+html {
+  font-synthesis: none;
 }
-
-/* ================ Dashboard layout helpers ================ */
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: 1.75rem;
-  align-items: start;
-  margin-top: 1.5rem;
-}
-
-/* card style used for stats and tables */
-.card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 1rem;
-  border: 1px solid rgba(10,10,10,0.03);
-  box-shadow: 0 8px 24px rgba(1,101,100,0.03);
-}
-
-/* statistic large number */
-.stat-number {
-  font-size: 2.25rem;
-  font-weight: 700;
-  color: var(--nauss-primary);
-}
-
-/* table tweaks */
-.table-root {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 0.75rem;
-}
-.table-root th {
-  text-align: right;
-  padding: 0.65rem 0.8rem;
-  color: #374151;
-  font-weight: 600;
-  font-size: 0.95rem;
-  border-bottom: 1px solid rgba(15,23,42,0.06);
-}
-.table-root td {
-  padding: 0.7rem 0.8rem;
-  font-size: 0.95rem;
-  color: #111827;
-  border-bottom: 1px solid rgba(15,23,42,0.04);
-}
-
-/* small helper: badge */
-.badge-soft {
-  background: rgba(208,178,132,0.14);
-  color: #7c1e3e;
-  padding: 6px 10px;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 0.87rem;
-}
-
-/* ================ Responsive ================ */
-@media (max-width: 1100px){
-  .login-layout { grid-template-columns: 1fr 380px; gap:1.5rem; padding-left:1rem;padding-right:1rem; }
-  .dashboard-grid{ grid-template-columns: 1fr; }
-}
-@media (max-width: 820px){
-  .login-layout { grid-template-columns: 1fr; padding-top:1.25rem; padding-bottom:1.25rem; }
-  .hero-right { order: 2; padding: 0.5rem 0; text-align: center; }
-  .login-card { order: 1; margin: 0 auto; width: 100%; max-width: 520px; }
-  .logo { margin: 0 auto; }
-}
-
-/* small visual polish for headings */
-.h1 {
-  font-size: 2.25rem;
-  font-weight: 800;
-  color: #071233;
-  line-height: 1.05;
-}
-.h2 {
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-.p-muted { color: var(--text-muted); font-size: 0.98rem; }
